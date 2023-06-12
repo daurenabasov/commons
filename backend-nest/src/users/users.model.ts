@@ -1,5 +1,7 @@
+import { UserRoles } from './../roles/user-roles.model';
+import { Role } from './../roles/roles.model';
 import { ApiProperty } from '@nestjs/swagger';
-import { Column, DataType, Model, Table } from 'sequelize-typescript';
+import { BelongsToMany, Column, DataType, Model, Table } from 'sequelize-typescript';
 
 
 // интерфейс для создания обьекта юзера 
@@ -37,4 +39,9 @@ export class User extends Model<User, UserCreationAttrs> {
         type: DataType.INTEGER, allowNull: true
     })
     banReason: string;
+
+
+    // связываем сущности и через  какую таблицу мы делаем 
+    @BelongsToMany(() => Role, () => UserRoles)
+    roles: Role[]
 }
